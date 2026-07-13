@@ -7,7 +7,6 @@
 | Skill | 简介 | 状态 |
 |-------|------|------|
 | [mm2map](./mm2map/) | 多模态内容（图片/视频/音频/PPT/URL）→ Mermaid 思维导图 | ✅ 可用 |
-| [wewrite](https://github.com/oaker-io/wewrite) | 微信公众号内容全流程助手（外部仓库） | ✅ 可用 |
 
 ## 安装方式
 
