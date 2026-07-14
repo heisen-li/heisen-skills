@@ -28,15 +28,13 @@ if (-not (Test-Path -LiteralPath $OutputDir)) {
     New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
 }
 
-$baseName = [System.IO.Path]::GetFileNameWithoutExtension($VideoPath)
-
 Write-Output "Extracting key frames from: $VideoPath"
 Write-Output "Interval: every $Interval seconds"
 Write-Output "Output directory: $OutputDir"
 
-ffmpeg -i $VideoPath -vf "fps=1/$Interval" -q:v 2 (Join-Path $OutputDir "$baseName_frame_%04d.jpg") -y 2>$null
+ffmpeg -i $VideoPath -vf "fps=1/$Interval" -q:v 2 (Join-Path $OutputDir "%04d.jpg") -y 2>$null
 
-$frames = Get-ChildItem -LiteralPath $OutputDir -Filter "$baseName_frame_*.jpg"
+$frames = Get-ChildItem -LiteralPath $OutputDir -Filter "*.jpg" | Where-Object { $_.Name -match '^\d{4}\.jpg$' }
 $count = $frames.Count
 
 if ($count -gt 0) {

@@ -2,6 +2,8 @@ import sys
 import os
 import json
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 def parse_pptx(pptx_path):
     try:
         from pptx import Presentation

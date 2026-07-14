@@ -2,6 +2,8 @@ import sys
 import os
 import json
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 def transcribe_local(audio_path, model_size="base"):
     if not os.path.exists(audio_path):
         print(json.dumps({

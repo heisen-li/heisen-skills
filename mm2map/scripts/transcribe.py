@@ -2,6 +2,8 @@ import sys
 import os
 import json
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 def transcribe_audio(audio_path):
     api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("WHISPER_API_KEY")
     key_source = "OPENAI_API_KEY" if os.environ.get("OPENAI_API_KEY") else "WHISPER_API_KEY" if api_key else None

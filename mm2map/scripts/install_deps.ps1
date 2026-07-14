@@ -1,4 +1,4 @@
-param(
+﻿param(
     [switch]$Install,
     [switch]$CheckOnly
 )
@@ -17,12 +17,13 @@ function Test-PythonPackage {
 }
 
 $deps = @(
-    @{ Name = "ffmpeg"; Type = "command"; Desc = "ffmpeg - 音频提取与关键帧截取" },
+    @{ Name = "ffmpeg"; Type = "command"; Desc = "ffmpeg - audio extraction and keyframe capture" },
     @{ Name = "python"; Type = "command"; Desc = "Python 3.x" },
-    @{ Name = "yt-dlp"; Type = "command"; Desc = "yt-dlp - 视频URL下载（YouTube/Bilibili等）" },
-    @{ Name = "pptx"; Type = "python_package"; Desc = "python-pptx - PPT文件解析" },
-    @{ Name = "faster_whisper"; Type = "python_package"; Desc = "faster-whisper - 本地语音转录（无需API Key）" },
-    @{ Name = "openai"; Type = "python_package"; Desc = "openai - Whisper API转录（可选，需API Key）" }
+    @{ Name = "yt-dlp"; Type = "command"; Desc = "yt-dlp - video URL download YouTube Bilibili etc" },
+    @{ Name = "pptx"; Type = "python_package"; Desc = "python-pptx - PPT file parsing" },
+    @{ Name = "pymupdf"; Type = "python_package"; Desc = "pymupdf - PDF file parsing PyMuPDF" },
+    @{ Name = "faster_whisper"; Type = "python_package"; Desc = "faster-whisper - local speech transcription no API Key needed" },
+    @{ Name = "openai"; Type = "python_package"; Desc = "openai - Whisper API transcription optional needs API Key" }
 )
 
 Write-Output "=========================================="
@@ -104,6 +105,9 @@ foreach ($dep in $missing) {
     } elseif ($dep.Name -eq "yt-dlp") {
         Write-Output "  pip install yt-dlp ..."
         python -m pip install yt-dlp --quiet 2>$null
+    } elseif ($dep.Name -eq "pymupdf") {
+        Write-Output "  pip install pymupdf ..."
+        python -m pip install pymupdf --quiet 2>$null
     } elseif ($dep.Name -eq "faster_whisper") {
         Write-Output "  pip install faster-whisper ..."
         python -m pip install faster-whisper --quiet 2>$null
@@ -166,6 +170,8 @@ if ($finalMissing.Count -eq 0) {
             Write-Output "  Python: winget install Python.Python.3.12 或从 https://python.org 下载"
         } elseif ($d.Name -eq "yt-dlp") {
             Write-Output "  yt-dlp: pip install yt-dlp 或从 https://github.com/yt-dlp/yt-dlp 下载"
+        } elseif ($d.Name -eq "pymupdf") {
+            Write-Output "  pymupdf: pip install pymupdf（PDF解析）"
         } elseif ($d.Name -eq "faster_whisper") {
             Write-Output "  faster-whisper: pip install faster-whisper（本地转录，无需API Key）"
         } elseif ($d.Name -eq "pptx") {
